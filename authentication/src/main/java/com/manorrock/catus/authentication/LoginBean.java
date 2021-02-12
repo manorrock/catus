@@ -29,6 +29,7 @@
  */
 package com.manorrock.catus.authentication;
 
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -36,22 +37,23 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Login bean.
- * 
+ *
  * @author Manfred Riem (mriem@manorrock.com)
  */
 @Named(value = "loginBean")
 @RequestScoped
 public class LoginBean {
-    
+
     /**
      * Stores the Faces context.
      */
     @Inject
     private FacesContext context;
-    
+
     /**
      * Stores the HTTP servlet request.
      */
@@ -59,10 +61,16 @@ public class LoginBean {
     private HttpServletRequest request;
 
     /**
+     * Stores the HTTP servlet response.
+     */
+    @Inject
+    private HttpServletResponse response;
+
+    /**
      * Stores the username.
      */
     private String username;
-    
+
     /**
      * Stores the password.
      */
@@ -70,7 +78,7 @@ public class LoginBean {
 
     /**
      * Get the password.
-     * 
+     *
      * @return the password.
      */
     public String getPassword() {
@@ -79,22 +87,32 @@ public class LoginBean {
 
     /**
      * Get the username.
-     * 
+     *
      * @return the username.
      */
     public String getUsername() {
         return username;
     }
-    
+
     /**
      * Login the user.
-     * 
+     *
+     * <p>
+     * Note this method will pass the username and password as request
+     * attributes to the HttpServletRequest so our ServerAuthModules can look
+     * for them.
+     * </p>
+     *
      * @return ""
      */
     public String login() {
         try {
-            request.login(username, password);
-        } catch(ServletException se) {
+            request.setAttribute(LoginBean.class.getName() + ".username", username);
+            request.setAttribute(LoginBean.class.getName() + ".password", password);
+            if (!request.authenticate(response)) {
+                context.responseComplete();
+            }
+        } catch (IOException | ServletException e) {
             context.addMessage(null, new FacesMessage("Unable to login"));
         }
         return "";
@@ -102,7 +120,7 @@ public class LoginBean {
 
     /**
      * Set the password.
-     * 
+     *
      * @param password the password.
      */
     public void setPassword(String password) {
@@ -111,7 +129,7 @@ public class LoginBean {
 
     /**
      * Set the username.
-     * 
+     *
      * @param username the username.
      */
     public void setUsername(String username) {
