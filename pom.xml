@@ -92,6 +92,9 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
+    <modules>
+        <module>authentication</module>
+    </modules>
     <profiles>
         <profile>
             <id>release</id>
