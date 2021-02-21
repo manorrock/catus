@@ -1,145 +1,280 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.manorrock.catus</groupId>
-    <artifactId>project</artifactId>
-    <version>21.2.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>Manorrock Catus - Project</name>
-    <description>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
+      
+  <modelVersion>4.0.0</modelVersion>
+      
+  <groupId>com.manorrock.catus</groupId>
+      
+  <artifactId>project</artifactId>
+      
+  <version>21.2.0-SNAPSHOT</version>
+      
+  <packaging>pom</packaging>
+      
+  <name>Manorrock Catus - Project</name>
+      
+  <description>
         The Manorrock Catus project delivers you with web overlays
     </description>
-    <url>https://github.com/manorrock/catus</url>
-    <licenses>
-        <license>
-            <name>Manorrock BSD License</name>
-            <url>https://github.com/manorrock/catus/blob/master/LICENSE</url>
-        </license>
-    </licenses>
-    <build>
+      
+  <url>https://github.com/manorrock/catus</url>
+      
+  <licenses>
+            
+    <license>
+                  
+      <name>Manorrock BSD License</name>
+                  
+      <url>https://github.com/manorrock/catus/blob/master/LICENSE</url>
+              
+    </license>
+        
+  </licenses>
+      
+  <build>
+            
+    <plugins>
+                  
+      <plugin>
+                        
+        <groupId>org.apache.maven.plugins</groupId>
+                        
+        <artifactId>maven-compiler-plugin</artifactId>
+                        
+        <version>3.8.1</version>
+                        
+        <inherited>true</inherited>
+                        
+        <configuration>
+                              
+          <source>1.8</source>
+                              
+          <target>1.8</target>
+                          
+        </configuration>
+                    
+      </plugin>
+                  
+      <plugin>
+                        
+        <groupId>org.apache.maven.plugins</groupId>
+                        
+        <artifactId>maven-jar-plugin</artifactId>
+                        
+        <version>3.2.0</version>
+                        
+        <inherited>true</inherited>
+                    
+      </plugin>
+                  
+      <plugin>
+                        
+        <groupId>org.apache.maven.plugins</groupId>
+                        
+        <artifactId>maven-javadoc-plugin</artifactId>
+                        
+        <version>3.2.0</version>
+                        
+        <inherited>true</inherited>
+                        
+        <executions>
+                              
+          <execution>
+                                    
+            <id>attach-javadocs</id>
+                                    
+            <goals>
+                                          
+              <goal>jar</goal>
+                                      
+            </goals>
+                                
+          </execution>
+                          
+        </executions>
+                    
+      </plugin>
+                  
+      <plugin>
+                        
+        <groupId>org.apache.maven.plugins</groupId>
+                        
+        <artifactId>maven-source-plugin</artifactId>
+                        
+        <version>3.2.1</version>
+                        
+        <inherited>true</inherited>
+                        
+        <executions>
+                              
+          <execution>
+                                    
+            <id>attach-sources</id>
+                                    
+            <goals>
+                                          
+              <goal>jar</goal>
+                                      
+            </goals>
+                                
+          </execution>
+                          
+        </executions>
+                    
+      </plugin>
+                  
+      <plugin>
+                        
+        <groupId>org.sonatype.plugins</groupId>
+                        
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        
+        <version>1.6.8</version>
+                        
+        <extensions>true</extensions>
+                        
+        <configuration>
+                              
+          <serverId>ossrh</serverId>
+                              
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                              
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                          
+        </configuration>
+                    
+      </plugin>
+              
+    </plugins>
+        
+  </build>
+      
+  <dependencyManagement>
+            
+    <dependencies>
+                  
+      <dependency>
+                        
+        <groupId>jakarta.platform</groupId>
+                        
+        <artifactId>jakarta.jakartaee-web-api</artifactId>
+                        
+        <version>8.0.0</version>
+                    
+      </dependency>
+              
+    </dependencies>
+        
+  </dependencyManagement>
+      
+  <developers>
+            
+    <developer>
+                  
+      <id>mriem</id>
+                  
+      <name>Manfred Riem</name>
+                  
+      <email>mriem@manorrock.com</email>
+                  
+      <organization>Manorrock.com</organization>
+              
+    </developer>
+        
+  </developers>
+      
+  <distributionManagement>
+            
+    <snapshotRepository>
+                  
+      <id>ossrh</id>
+                  
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+              
+    </snapshotRepository>
+        
+  </distributionManagement>
+      
+  <modules>
+            
+    <module>authentication</module>
+          
+    <module>authorization</module>
+      
+  </modules>
+      
+  <profiles>
+            
+    <profile>
+                  
+      <id>release</id>
+                  
+      <build>
+                        
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <inherited>true</inherited>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
-                <inherited>true</inherited>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.2.0</version>
-                <inherited>true</inherited>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
-                <inherited>true</inherited>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.8</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
+                              
+          <plugin>
+                                    
+            <groupId>org.apache.maven.plugins</groupId>
+                                    
+            <artifactId>maven-gpg-plugin</artifactId>
+                                    
+            <version>1.6</version>
+                                    
+            <executions>
+                                          
+              <execution>
+                                                
+                <id>sign-artifacts</id>
+                                                
+                <phase>verify</phase>
+                                                
+                <goals>
+                                                      
+                  <goal>sign</goal>
+                                                  
+                </goals>
+                                            
+              </execution>
+                                      
+            </executions>
+                                    
+            <configuration>
+                                          
+              <gpgArguments>
+                                                
+                <arg>--pinentry-mode</arg>
+                                                
+                <arg>loopback</arg>
+                                            
+              </gpgArguments>
+                                      
+            </configuration>
+                                
+          </plugin>
+                          
         </plugins>
-    </build>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>jakarta.platform</groupId>
-                <artifactId>jakarta.jakartaee-web-api</artifactId>
-                <version>8.0.0</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    <developers>
-        <developer>
-            <id>mriem</id>
-            <name>Manfred Riem</name>
-            <email>mriem@manorrock.com</email>
-            <organization>Manorrock.com</organization>
-        </developer>
-    </developers>
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
-    <modules>
-        <module>authentication</module>
-    </modules>
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <gpgArguments>
-                                <arg>--pinentry-mode</arg>
-                                <arg>loopback</arg>
-                            </gpgArguments>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-    <scm>
-        <connection>scm:git:git://github.com/manorrock/catus.git</connection>
-        <developerConnection>scm:git:git@github.com:manorrock/catus.git</developerConnection>
-        <url>https://github.com/manorrock/catus</url>
-    </scm>
+                    
+      </build>
+              
+    </profile>
+        
+  </profiles>
+      
+  <properties>
+            
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+  </properties>
+      
+  <scm>
+            
+    <connection>scm:git:git://github.com/manorrock/catus.git</connection>
+            
+    <developerConnection>scm:git:git@github.com:manorrock/catus.git</developerConnection>
+            
+    <url>https://github.com/manorrock/catus</url>
+        
+  </scm>
+  
 </project>
